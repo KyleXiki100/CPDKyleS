@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "37851029006",
+    "project_id": "petdb-6d1e5",
+    "storage_bucket": "petdb-6d1e5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37851029006:android:3cb2f5a4acc8676225e65f",
+        "android_client_info": {
+          "package_name": "com.example.cpdkylescicluna"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDM99iSAnxcN5MjMJKDV6JmYh-7OUR87cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
