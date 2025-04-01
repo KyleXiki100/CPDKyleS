@@ -14,6 +14,7 @@ class InsertPetScreen extends StatefulWidget {
 
 class InsertPetScreenState extends State<InsertPetScreen> {
   final TextEditingController _petNameController = TextEditingController();
+  final TextEditingController _petBreedController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
   final TextEditingController _vaccineController = TextEditingController();
@@ -37,6 +38,7 @@ class InsertPetScreenState extends State<InsertPetScreen> {
 
   final petData = {
     'name': _petNameController.text,
+    'breed': _petBreedController.text,
     'age': _ageController.text,
     'weight': _weightController.text,
     'vaccine': _vaccineController.text,
@@ -129,6 +131,7 @@ class InsertPetScreenState extends State<InsertPetScreen> {
             ),
             const SizedBox(height: 30),
             _buildTextField("Pet Name", _petNameController),
+            _buildTextField("Pet Breed", _petBreedController),
             _buildTextField("Age", _ageController),
             _buildTextField("Weight (kg)", _weightController),
             _buildTextField("Last Vaccine Date", _vaccineController),
