@@ -158,7 +158,7 @@ class InsertPetScreenState extends State<InsertPetScreen> {
                       ),
                     ],
                   )
-                else // Narrow screens (e.g., portrait phones)
+                else 
                   Column(
                     children: [
                       _buildTextField("Pet Name", _petNameController),
