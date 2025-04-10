@@ -19,3 +19,16 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.1.3") // Update AGP
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22") // Update Kotlin
+    }
+}
+
+

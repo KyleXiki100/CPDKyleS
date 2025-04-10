@@ -4,6 +4,7 @@ import 'dart:io';
 import '/colors.dart';
 import '/screens/client_list_screen.dart';
 import '/services/database_service.dart';
+import '/screens/home.screen.dart';
 
 class InsertPetScreen extends StatefulWidget {
   const InsertPetScreen({super.key});
@@ -52,7 +53,7 @@ class InsertPetScreenState extends State<InsertPetScreen> {
     print("Data pushed successfully!");
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const ClientListScreen()),
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
     );
   } catch (error) {
     _showError('Failed to save pet: ${error.toString()}');
@@ -85,74 +86,108 @@ class InsertPetScreenState extends State<InsertPetScreen> {
     );
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor2,
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () => _pickImage(ImageSource.gallery),
-              child: Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: _petImage == null
-                    ? Center(
-                        child: Text(
-                          "Tap to Add Image",
-                          style: TextStyle(
-                            color: Colors.brown[700],
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.file(_petImage!, fit: BoxFit.cover),
-                      ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
               children: [
-                _buildImageButton("CAMERA", Icons.camera_alt, 
-                  () => _pickImage(ImageSource.camera)),
-                const SizedBox(width: 20),
-                _buildImageButton("GALLERY", Icons.photo_library, 
-                  () => _pickImage(ImageSource.gallery)),
+                GestureDetector(
+                  onTap: () => _pickImage(ImageSource.gallery),
+                  child: Container(
+                    width: constraints.maxWidth > 600 ? 300 : 150,
+                    height: constraints.maxWidth > 600 ? 300 : 150,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: _petImage == null
+                        ? Center(
+                            child: Text(
+                              "Tap to Add Image",
+                              style: TextStyle(
+                                color: Colors.brown[700],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.file(_petImage!, fit: BoxFit.cover),
+                          ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildImageButton("CAMERA", Icons.camera_alt,
+                        () => _pickImage(ImageSource.camera)),
+                    const SizedBox(width: 20),
+                    _buildImageButton("GALLERY", Icons.photo_library,
+                        () => _pickImage(ImageSource.gallery)),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                if (constraints.maxWidth > 600) 
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            _buildTextField("Pet Name", _petNameController),
+                            _buildTextField("Pet Breed", _petBreedController),
+                            _buildTextField("Age", _ageController),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            _buildTextField("Weight (kg)", _weightController),
+                            _buildTextField("Last Vaccine Date", _vaccineController),
+                            _buildTextField("Additional Info", _infoController),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                else // Narrow screens (e.g., portrait phones)
+                  Column(
+                    children: [
+                      _buildTextField("Pet Name", _petNameController),
+                      _buildTextField("Pet Breed", _petBreedController),
+                      _buildTextField("Age", _ageController),
+                      _buildTextField("Weight (kg)", _weightController),
+                      _buildTextField("Last Vaccine Date", _vaccineController),
+                      _buildTextField("Additional Info", _infoController),
+                    ],
+                  ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: ElevatedButton(
+                    onPressed: _submitForm,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 15),
+                    ),
+                    child: const Text(
+                      "SAVE PROFILE",
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
               ],
             ),
-            const SizedBox(height: 30),
-            _buildTextField("Pet Name", _petNameController),
-            _buildTextField("Pet Breed", _petBreedController),
-            _buildTextField("Age", _ageController),
-            _buildTextField("Weight (kg)", _weightController),
-            _buildTextField("Last Vaccine Date", _vaccineController),
-            _buildTextField("Additional Info", _infoController),
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: ElevatedButton(
-                onPressed: _submitForm,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 50, vertical: 15),
-                ),
-                child: const Text(
-                  "SAVE PROFILE",
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

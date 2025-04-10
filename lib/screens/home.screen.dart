@@ -1,26 +1,8 @@
 import 'package:flutter/material.dart';
-import '/screens/quick_access_button.dart';
+import 'package:flutter_svg/flutter_svg.dart'; 
+import '/colors.dart'; 
 import '/screens/insert_pet_screen.dart';
 import '/screens/client_list_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); 
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
-    );
-  }
-}
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -28,28 +10,75 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
+      backgroundColor: primaryColor2,
       body: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            QuickAccessButton(
-              label: "Insert Pet",
+            // Logo at the top
+            SvgPicture.asset(
+              'assets/images/shiba.svg', 
+              width: 100,
+              height: 100,
+            ),
+            const SizedBox(height: 50),
+            
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const InsertPetScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => const InsertPetScreen(),
+                  ),
                 );
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFF5A623), 
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50,
+                  vertical: 15,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Text(
+                'Insert PET',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-            const SizedBox(height: 10),
-            QuickAccessButton(
-              label: "Client List",
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ClientListScreen()),
+            const SizedBox(height: 20), 
+            
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ClientListScreen(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFF5A623), 
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 50,
+                  vertical: 15,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Text(
+                'Client List',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

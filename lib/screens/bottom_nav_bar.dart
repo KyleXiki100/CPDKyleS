@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '/colors.dart';
 import '/screens/home.screen.dart';
 import '/screens/insert_pet_screen.dart';
+import '/screens/client_list_screen.dart';
 
 
 
@@ -17,7 +18,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const InsertPetScreen(),
-    // const ProfileScreen(),
+    const ClientListScreen(),
   ];
 
   void _onItemTapped(int index) => setState(() => _selectedIndex = index);
@@ -63,12 +64,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search, size: 30),
-                label: 'Search',
+                icon: Icon(Icons.add, size: 30),
+                label: 'Add',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person, size: 30),
-                label: 'Profile',
+                icon: Icon(Icons.list, size: 30),
+                label: 'List',
               ),
             ],
           ),

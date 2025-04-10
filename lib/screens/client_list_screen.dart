@@ -4,6 +4,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'dart:io';
 import '/colors.dart';
 import 'dart:async';
+import 'edit_pet.dart';
+
+
 
 class ClientListScreen extends StatefulWidget {
   const ClientListScreen({super.key});
@@ -201,14 +204,32 @@ class _PetCard extends StatelessWidget {
             ],
             const Divider(),
             Row(
-              children: [
-                const CircleAvatar(
-                  backgroundColor: primaryColor,
-                  child: Icon(Icons.person, color: Colors.white, size: 18),
-                ),
-                const SizedBox(width: 12),
-              ],
+  children: [
+    Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: primaryColor,
+      ),
+      child: IconButton(
+        icon: const Icon(Icons.edit, color: Colors.white, size: 18),
+        onPressed: () {
+          
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EditPetScreen(
+                petId: petId,
+               
+              ),
             ),
+          );
+        },
+        tooltip: 'Edit',
+      ),
+    ),
+    const SizedBox(width: 12),
+  ],
+),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
